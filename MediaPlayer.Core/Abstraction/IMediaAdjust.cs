@@ -5,8 +5,9 @@ using System.Threading.Tasks;
 
 namespace MediaPlayer.Core.Abstraction
 {
-    public class IMedia
+    public interface IMediaAdjust
     {
-        
+        public void AdjustVolumn(int amount);
+        public void AdjustBrightness(int amount);
     }
 }
