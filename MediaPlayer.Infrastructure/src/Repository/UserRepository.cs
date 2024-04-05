@@ -1,9 +1,4 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using MediaPlayer.Core.Entity;
-using MediaPlayer.Core.Enum;
 using MediaPlayer.Core.RepositoryAbstraction;
 using MediaPlayer.Infrastructure.src.Data;
 using MediaPlayer.Service.src.DTO;
@@ -21,7 +16,7 @@ namespace MediaPlayer.Infrastructure.src.Repository
 
         }
 
-        public User CreateNewUser(User user)
+        public User? CreateNewUser(User user)
         {
             if (!_users.Any(u => u.UserName == user.UserName))
             {

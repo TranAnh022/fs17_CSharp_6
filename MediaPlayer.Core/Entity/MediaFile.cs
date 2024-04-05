@@ -5,9 +5,9 @@ namespace MediaPlayer.Core.Entity
 {
     public class MediaFile
     {
-        public MediaFile(string fileName, MediaType mediaType, Guid id = default)
+        public MediaFile(string fileName, MediaType mediaType )
         {
-            MediaFileId = id == default ? Guid.NewGuid() : id;
+            MediaFileId =  Guid.NewGuid() ;
             FileName = fileName;
             Type = mediaType;
             Status = MediaStatus.Stopped;

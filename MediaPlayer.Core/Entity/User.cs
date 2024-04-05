@@ -5,10 +5,10 @@ namespace MediaPlayer.Core.Entity
 {
     public class User : IMediaAdjust
     {
-        public User(string name, UserType userType, Guid id = default)
+        public User(string name, UserType userType )
         {
             UserName = name;
-            UserId = id == default ? Guid.NewGuid() : id;
+            UserId = Guid.NewGuid() ;
             UserType = userType;
             Volume = 0;
             Brightness = 100;
