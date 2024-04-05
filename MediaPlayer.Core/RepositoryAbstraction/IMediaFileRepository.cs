@@ -15,5 +15,8 @@ namespace MediaPlayer.Core.RepositoryAbstraction
         public MediaFile UpdateMediaFile(Guid id, MediaFileDto mediaFile);
 
         public MediaFile ChangeMediaStatus(Guid id, MediaStatus status);
+
+        public MediaFile GetMediaFileById(Guid mediaFileId);
+        public void UpdateMediaFile(MediaFile mediaFile);
     }
 }

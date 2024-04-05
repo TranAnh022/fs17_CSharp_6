@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using MediaPlayer.Core.Entity;
 using MediaPlayer.Core.Enum;
 using MediaPlayer.Core.RepositoryAbstraction;
@@ -80,6 +76,20 @@ namespace MediaPlayer.Service.src.ServiceImplemention
             return null;
         }
 
+        public void UpdateMediaFileSoundEffect(Guid mediaFileId, SoundType newSoundEffect)
+        {
+            var mediaFile = _mediaFileRepository.GetMediaFileById(mediaFileId);
+
+            if (mediaFile != null && mediaFile.Type == MediaType.Audio)
+            {
+                mediaFile.SoundEffect = newSoundEffect;
+                _mediaFileRepository.UpdateMediaFile(mediaFile);
+            }
+            else
+            {
+                Console.WriteLine("Media file not found or not an audio file.");
+            }
+        }
 
     }
 }

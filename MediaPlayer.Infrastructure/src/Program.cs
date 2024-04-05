@@ -31,6 +31,21 @@ internal class Program
                 Console.WriteLine();
 
                 var testFile = mediaService.CreateNewMediaFile("Test media", MediaType.Video,adminUser);
+                Console.WriteLine();
+
+                var testFile2 = mediaService.CreateNewMediaFile("Test media2", MediaType.Audio, adminUser);
+                Console.WriteLine();
+
+                //--Change the soundEffect --
+                mediaService.UpdateMediaFileSoundEffect(testFile2.MediaFileId, SoundType.Reverb);
+                Console.WriteLine($"Sound effect of media file updated: {testFile2}");
+                Console.WriteLine();
+
+                //--Testing adjust the volumn and brightness
+                testUser.AdjustBrightness(50);
+                Console.WriteLine();
+                testUser.AdjustVolumn(50);
+                Console.WriteLine();
 
                 //--Testing get users --
                 var users = userService.GetAllUsers();
@@ -54,6 +69,12 @@ internal class Program
                 Console.WriteLine();
 
                 playTrackService.AddMediaToPlayTrack(testPlayTrack.PlayTrackId, testUser.UserId, testFile.MediaFileId);
+                Console.WriteLine(testPlayTrack);
+                Console.WriteLine();
+                Console.WriteLine(testUser);
+
+                //--Testing remove media from play track belonging to test user --
+                playTrackService.RemoveMediaToPlayTrack(testPlayTrack.PlayTrackId, testUser.UserId, testFile.MediaFileId);
                 Console.WriteLine(testPlayTrack);
                 Console.WriteLine();
                 Console.WriteLine(testUser);

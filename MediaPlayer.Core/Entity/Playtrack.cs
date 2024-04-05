@@ -17,7 +17,7 @@ namespace MediaPlayer.Core.Entity
         {
             string mediaFilesInfo = MediaFiles != null && MediaFiles.Any()
                 ? string.Join(", ", MediaFiles)
-                : "No media files";
+                : "";
 
             return $"Name: {PlayTrackName}, MediaFiles: [{mediaFilesInfo}]";
         }

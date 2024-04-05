@@ -14,8 +14,8 @@ namespace MediaPlayer.Service.src.Utils
         }
         public MediaFile CreateMedia(string username, MediaType type)
         {
-            var media = new MediaFile(username, type);
 
+            var media = new MediaFile(username, type);
             return media;
         }
     }

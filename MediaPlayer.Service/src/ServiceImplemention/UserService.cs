@@ -1,7 +1,3 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using MediaPlayer.Core.Entity;
 using MediaPlayer.Core.Enum;
 using MediaPlayer.Core.RepositoryAbstraction;
@@ -20,7 +16,6 @@ namespace MediaPlayer.Service.src.ServiceImplemention
             _userRepository = userRepository;
 
         }
-
 
         public IEnumerable<User> GetAllUsers()
         {

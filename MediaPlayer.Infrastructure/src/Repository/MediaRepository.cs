@@ -26,6 +26,11 @@ namespace MediaPlayer.Infrastructure.src.Repository
             return mediaFile;
         }
 
+        public MediaFile GetMediaFileById(Guid mediaFileId)
+        {
+            return _medias.FirstOrDefault(m => m.MediaFileId == mediaFileId);
+        }
+
         public MediaFile CreateNewMediaFile(MediaFile mediaFile)
         {
             _medias.Add(mediaFile);
@@ -63,6 +68,19 @@ namespace MediaPlayer.Infrastructure.src.Repository
             };
             Console.WriteLine($"Media file with ID {id} not found.");
             return null;
+        }
+
+        public void UpdateMediaFile(MediaFile mediaFile)
+        {
+            var existingMediaFile = _medias.FirstOrDefault(m => m.MediaFileId == mediaFile.MediaFileId);
+            if (existingMediaFile != null)
+            {
+                existingMediaFile.SoundEffect = mediaFile.SoundEffect;
+            }
+            else
+            {
+                Console.WriteLine("Media file not found.");
+            }
         }
 
     }

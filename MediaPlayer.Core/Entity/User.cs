@@ -25,11 +25,13 @@ namespace MediaPlayer.Core.Entity
         public void AdjustBrightness(int amount)
         {
             Brightness = amount;
+            Console.WriteLine($"Change the Brightness to {amount}");
         }
 
         public void AdjustVolumn(int amount)
         {
             Volume = amount;
+            Console.WriteLine($"Change the Volumn to {amount}");
         }
 
         public override string ToString()
