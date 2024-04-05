@@ -8,6 +8,7 @@ namespace MediaPlayer.Infrastructure.src.Data
         public HashSet<User> _users;
         public List<MediaFile> _mediaFiles;
         public List<Playtrack> _playtracks;
+        public User _currentUser;
 
         private static Database _instance;
 
@@ -31,6 +32,7 @@ namespace MediaPlayer.Infrastructure.src.Data
             ];
 
             _playtracks = new List<Playtrack>();
+            
         }
 
         public static Database GetDatabase()

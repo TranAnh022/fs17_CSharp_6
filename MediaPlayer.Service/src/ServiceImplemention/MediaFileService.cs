@@ -2,24 +2,21 @@ using MediaPlayer.Core.Entity;
 using MediaPlayer.Core.Enum;
 using MediaPlayer.Core.RepositoryAbstraction;
 using MediaPlayer.Service.src.DTO;
-using MediaPlayer.Service.src.Utils;
+
 
 namespace MediaPlayer.Service.src.ServiceImplemention
 {
     public class MediaFileService
     {
         private IMediaFileRepository _mediaFileRepository;
+        private AuthorizationService _authorizationService;
 
-        public MediaFileService(IMediaFileRepository mediaFileRepository)
+        public MediaFileService(IMediaFileRepository mediaFileRepository, AuthorizationService authorizationService)
         {
             _mediaFileRepository = mediaFileRepository;
+            _authorizationService = authorizationService;
         }
 
-        public bool IsAdmin(User user)
-        {
-            if (user.UserType == UserType.Admin) return true;
-            return false;
-        }
 
         public IEnumerable<MediaFile> GetAllMediaFile()
         {
@@ -31,14 +28,13 @@ namespace MediaPlayer.Service.src.ServiceImplemention
             _mediaFileRepository.ChangeMediaStatus(id, status);
         }
 
-        public MediaFile CreateNewMediaFile(string mediaName, MediaType mediaFile, User userAdmin)
+        public MediaFile CreateNewMediaFile(string mediaName, MediaType mediaFile)
         {
-            if (IsAdmin(userAdmin))
+            if (_authorizationService.IsAdmin())
             {
                 if (!string.IsNullOrEmpty(mediaName))
                 {
-                    var mediaFactory = new MediaFactory();
-                    var media = mediaFactory.CreateMedia(mediaName, mediaFile);
+                    var media = new MediaFile(mediaName, mediaFile);
                     Console.WriteLine("New media file created successfully.");
                     return _mediaFileRepository.CreateNewMediaFile(media);
                 }
@@ -51,9 +47,9 @@ namespace MediaPlayer.Service.src.ServiceImplemention
             return null;
         }
 
-        public void DeleteMediaFile(Guid id, User userAdmin)
+        public void DeleteMediaFile(Guid id)
         {
-            if (IsAdmin(userAdmin))
+            if (_authorizationService.IsAdmin())
             {
                 if (_mediaFileRepository.GetMedias().Any(m => m.MediaFileId == id))
                 {
@@ -66,9 +62,9 @@ namespace MediaPlayer.Service.src.ServiceImplemention
             Console.WriteLine("Only admin can delete media file");
         }
 
-        public MediaFile UpdateMediaFile(Guid id, MediaFileDto mediaFile, User userAdmin)
+        public MediaFile UpdateMediaFile(Guid id, MediaFileDto mediaFile)
         {
-            if (IsAdmin(userAdmin))
+            if (_authorizationService.IsAdmin())
             {
                 return _mediaFileRepository.UpdateMediaFile(id, mediaFile);
             }

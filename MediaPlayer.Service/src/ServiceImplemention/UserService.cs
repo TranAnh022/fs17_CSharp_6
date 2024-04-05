@@ -2,18 +2,19 @@ using MediaPlayer.Core.Entity;
 using MediaPlayer.Core.Enum;
 using MediaPlayer.Core.RepositoryAbstraction;
 using MediaPlayer.Service.src.DTO;
-using MediaPlayer.Service.src.Utils;
+
 
 namespace MediaPlayer.Service.src.ServiceImplemention
 {
     public class UserService
     {
         private IUserRepository _userRepository;
+        private AuthorizationService _authorizationService;
 
-
-        public UserService(IUserRepository userRepository )
+        public UserService(IUserRepository userRepository, AuthorizationService authorizationService)
         {
             _userRepository = userRepository;
+            _authorizationService = authorizationService;
 
         }
 
@@ -22,21 +23,14 @@ namespace MediaPlayer.Service.src.ServiceImplemention
             return _userRepository.GetUsers();
         }
 
-        public bool IsAdmin(User user)
-        {
-            if (user.UserType == UserType.Admin) return true;
-            return false;
-        }
 
-        public User CreateNewUser(string username, UserType userType, User userAdmin)
+        public User CreateNewUser(string username, UserType userType)
         {
-            if (IsAdmin(userAdmin))
+            if (_authorizationService.IsAdmin())
             {
                 if (!string.IsNullOrEmpty(username))
                 {
-                    var userFactory = new UserFactory();
-                    var user = userFactory.CreateUser(username, userType);
-
+                    var user = new User(username, userType);
                     if (_userRepository.GetUsers().Any(u => u.UserName == user.UserName))
                     {
                         Console.WriteLine($"User with username '{user.UserName}' already exists. Cannot create user.");
@@ -53,9 +47,9 @@ namespace MediaPlayer.Service.src.ServiceImplemention
             return null;
         }
 
-        public void DeleteUser(Guid id, User userAdmin)
+        public void DeleteUser(Guid id)
         {
-            if (IsAdmin(userAdmin))
+            if (_authorizationService.IsAdmin())
             {
                 _userRepository.DeleteUser(id);
                 return;
@@ -63,9 +57,9 @@ namespace MediaPlayer.Service.src.ServiceImplemention
             Console.WriteLine("Only admin can delete user");
         }
 
-        public User UpdateUser(Guid id, UserDto user, User userAdmin)
+        public User UpdateUser(Guid id, UserDto user )
         {
-            if (IsAdmin(userAdmin))
+            if (_authorizationService.IsAdmin())
             {
                 return _userRepository.UpdateUser(id, user);
             }

@@ -1,10 +1,6 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using MediaPlayer.Core.Entity;
 using MediaPlayer.Core.RepositoryAbstraction;
-using MediaPlayer.Service.src.Utils;
+
 
 namespace MediaPlayer.Service.src.ServiceImplemention
 {
@@ -21,9 +17,7 @@ namespace MediaPlayer.Service.src.ServiceImplemention
         {
             if (name is not null)
             {
-                var playTrackFactory = new PlayTrackFactory();
-
-                var playTrack = playTrackFactory.CreateTrack(name);
+                var playTrack = new Playtrack(name);
 
                 _playTrackRepository.CreatePlayTrack(playTrack,userId);
 
