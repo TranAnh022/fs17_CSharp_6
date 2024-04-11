@@ -46,17 +46,17 @@ namespace MediaPlayer.Infrastructure.src.Repository
             return null;
         }
 
-        public void DeleteUser(Guid id)
+        public bool DeleteUser(Guid id)
         {
             var deletedUser = _users.FirstOrDefault(u => u.UserId == id);
             if (deletedUser is not null)
             {
                 _users.Remove(deletedUser);
                 Console.WriteLine("User deleted successfully.");
-                return;
+                return true;
             };
             Console.WriteLine($"User with ID {id} not found.");
-            return; ;
+            return false ;
         }
     }
 }

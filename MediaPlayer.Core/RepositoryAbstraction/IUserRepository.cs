@@ -10,7 +10,7 @@ namespace MediaPlayer.Core.RepositoryAbstraction
 
         public IEnumerable<User> GetUsers();
 
-        public void DeleteUser(Guid id);
+        public bool DeleteUser(Guid id);
 
         public User UpdateUser(Guid id, UserDto user);
     }

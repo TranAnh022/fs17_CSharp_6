@@ -47,14 +47,15 @@ namespace MediaPlayer.Service.src.ServiceImplemention
             return null;
         }
 
-        public void DeleteUser(Guid id)
+        public bool DeleteUser(Guid id)
         {
             if (_authorizationService.IsAdmin())
             {
                 _userRepository.DeleteUser(id);
-                return;
+                return true;
             }
             Console.WriteLine("Only admin can delete user");
+            return false;
         }
 
         public User UpdateUser(Guid id, UserDto user )

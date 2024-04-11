@@ -8,7 +8,7 @@ namespace MediaPlayer.Core.RepositoryAbstraction
 {
     public interface IPlayTrackRepository
     {
-        public Playtrack CreatePlayTrack(Playtrack playtrack,Guid userId);
+        public Playtrack CreatePlayTrack(string name,Guid userId);
 
         public Playtrack AddMediaToPlayTrack(Guid playTrackId, Guid userId, Guid mediaId);
 
